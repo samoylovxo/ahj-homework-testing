@@ -25,16 +25,14 @@ window.addEventListener('DOMContentLoaded', () => {
     const cardCode = this.value.replace(/[^\d]/g, '');
     this.value = cardCode !== '' ? cardCode.match(/.{1,4}/g).join(' ') : '';
 
-    if (
-      validateCard(
-        this.value
-          .split('')
-          .filter((el) => el !== ' ')
-          .map((el) => +el)
-      ) &&
-      this.value.length > 16 &&
-      this.value.length < 20
-    ) {
+    const isValidCard = validateCard(
+      this.value
+        .split('')
+        .filter((el) => el !== ' ')
+        .map((el) => +el)
+    );
+
+    if (isValidCard && this.value.length > 16 && this.value.length < 20) {
       btn.removeAttribute('disabled');
     } else {
       btn.setAttribute('disabled', '');
@@ -52,19 +50,21 @@ window.addEventListener('DOMContentLoaded', () => {
       addColorCardImg(input, cardsArray[k], cardCodeFirstNums[v]);
     }
 
+    const inputValueSlices = this.value.slice(0, 2);
+
     if (
-      this.value.slice(0, 2) === '30' ||
-      this.value.slice(0, 2) === '36' ||
-      this.value.slice(0, 2) === '38'
+      inputValueSlices === '30' ||
+      inputValueSlices === '36' ||
+      inputValueSlices === '38'
     ) {
       dinersClub.classList.remove('colorless');
     }
 
-    if (this.value.slice(0, 2) === '31' || this.value.slice(0, 2) === '35') {
+    if (inputValueSlices === '31' || inputValueSlices === '35') {
       jcb.classList.remove('colorless');
     }
 
-    if (this.value.slice(0, 2) === '34' || this.value.slice(0, 2) === '37') {
+    if (inputValueSlices === '34' || inputValueSlices === '37') {
       americanExpress.classList.remove('colorless');
     }
   }
