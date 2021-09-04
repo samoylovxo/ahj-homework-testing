@@ -24,10 +24,10 @@ describe('cards form', () => {
     await page.goto(baseUrl);
     const form = await page.$('.credit-cards__form');
     const input = await form.$('.card-input');
-    await input.type('2355400056296711');
+    await input.type('457457346');
     const submit = await form.$('.btn');
     submit.click();
-    await page.waitFor('.card-input');
+    await page.waitFor('.card-input.invalid');
   });
 
   it('check is valid', async () => {

@@ -32,7 +32,7 @@ window.addEventListener('DOMContentLoaded', () => {
         .map((el) => +el)
     );
 
-    if (isValidCard && this.value.length > 16 && this.value.length < 20) {
+    if (isValidCard || this.value.length < 21) {
       btn.removeAttribute('disabled');
     } else {
       btn.setAttribute('disabled', '');
@@ -82,14 +82,18 @@ window.addEventListener('DOMContentLoaded', () => {
     const successMsg = document.createElement('div');
     successMsg.className = 'msg';
 
-    if (isValidCardCode) {
+    if (isValidCardCode && input.value.length > 15) {
       successMsg.style.backgroundColor = 'teal';
       successMsg.innerText = 'Успешно! Данные введены верно';
       input.classList.toggle('valid');
+    } else {
+      successMsg.style.backgroundColor = 'crimson';
+      successMsg.innerText = 'Ошибка, проверьте введенные данные';
+      input.classList.toggle('invalid');
     }
 
-    creditCardsContainer.appendChild(successMsg);
     input.value = '';
+    creditCardsContainer.appendChild(successMsg);
     btn.setAttribute('disabled', '');
   };
 
